@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'memory-game-ws-thank-you',
+  selector: 'mg-thank-you',
   templateUrl: './thank-you.component.html',
-  styleUrls: ['./thank-you.component.scss']
+  styleUrls: ['./thank-you.component.scss'],
 })
 export class ThankYouComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

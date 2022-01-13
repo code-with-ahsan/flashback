@@ -1,11 +1,9 @@
+@import '../../styles/mixins';
 :host {
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #e5e5f7;
-  opacity: 0.8;
-  background-image:  linear-gradient(#8E9EF6 1px, transparent 1px), linear-gradient(to right, #8E9EF6 1px, rgb(147,164,255) 1px);
-  background-size: 30px 30px;
+  @include backgroundTiles(#8E9EF6, rgb(147,164,255));
   .welcome {
     width: 100%;
     height: 100%;

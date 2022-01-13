@@ -1,0 +1,4 @@
+@mixin backgroundTiles($borderColor, $bgColor, $tileSize: 30px) {
+  background-image:  linear-gradient($bgColor 1px, transparent 1px), linear-gradient(to right, $bgColor 1px, $borderColor 1px);
+  background-size: 30px 30px;
+}

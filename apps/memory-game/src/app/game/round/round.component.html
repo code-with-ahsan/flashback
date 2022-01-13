@@ -1,0 +1,9 @@
+<div class="container" *ngIf="!splashVisible else splash">
+  <div class="text-7xl">
+    Game
+  </div>
+</div>
+
+<ng-template #splash>
+  <mg-round-splash-screen [title]="roundSplashTitle"></mg-round-splash-screen>
+</ng-template>

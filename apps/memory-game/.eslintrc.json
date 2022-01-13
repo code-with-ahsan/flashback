@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "memory-game-ws",
+            "prefix": "mg",
             "style": "kebab-case"
           }
         ]

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Message } from '@memory-game-ws/api-interfaces';
 
 @Component({
-  selector: 'memory-game-ws-root',
+  selector: 'mg-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
