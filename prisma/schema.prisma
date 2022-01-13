@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["mongodb"]
 }
 
@@ -12,19 +12,36 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  name String
-  email     String   @unique
-  posts     Game[]
+  id                 String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt          DateTime @default(now())
+  name               String
+  email              String   @unique
+  gamesParticipating Game[]   @relation("participants", fields: [gamesInParticipatingIds])
+  gamesInParticipatingIds String @db.Array(ObjectId)
+  gamesHosted        Game[]   @relation("host")
+  Score              Score[]
 }
 
 model Game {
+  id              String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt       DateTime @default(now())
+  url             String   @unique
+  body            String?
+  likes           Int      @default(0)
+  host            User     @relation("host", fields: [hostId], references: [id])
+  hostId          String   @db.ObjectId
+  participants    User[]   @relation("participants", fields: [participantsIds], references: [id])
+  participantsIds String[] @db.Array(ObjectId)
+  winnerId        String?  @db.ObjectId
+  Score           Score[]
+}
+
+model Score {
   id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
-  title     String
-  body      String?
-  views     Int      @default(0)
-  participants User[] @relation(references: [id])
-  winnerId  String?  @db.ObjectId
+  game      Game     @relation(references: [id], fields: [gameId])
+  gameId    String   @db.ObjectId
+  user      User     @relation(references: [id], fields: [userId])
+  userId    String   @db.ObjectId
+  score     Int
 }

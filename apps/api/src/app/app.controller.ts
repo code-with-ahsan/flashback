@@ -12,9 +12,4 @@ export class AppController {
   getData(): Message {
     return this.appService.getData();
   }
-
-  @Post()
-  createUser() {
-    return this.appService.createUser();
-  }
 }
