@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { combineLatestWith, delay, filter, first } from 'rxjs';
+import { combineLatestWith, delay, filter, first, takeWhile } from 'rxjs';
 import { GameState, IGame } from '../../interfaces/Game.interface';
 import { UserService } from '../../services/user.service';
 import { ScoreService } from '../../services/score.service';
@@ -13,7 +13,7 @@ import { GameService } from '../../services/game.service';
   templateUrl: './round.component.html',
   styleUrls: ['./round.component.scss'],
 })
-export class RoundComponent implements OnInit {
+export class RoundComponent implements OnInit, OnDestroy {
   splashVisible = false;
   gameUrl!: string | null;
   roundSplashTitle = 'Round Starting! Good luck!';
@@ -22,6 +22,8 @@ export class RoundComponent implements OnInit {
   cards: ICard[] = [];
   firstSelection: ICard | null = null;
   secondSelection: ICard | null = null;
+  wrongMatchDisplay = false;
+  isComponentAlive = true;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -32,13 +34,21 @@ export class RoundComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isComponentAlive = true;
     this.gameUrl = this.route.snapshot.paramMap.get('url');
     this.showSplashIfApplicable();
     this.listenToEvents();
     this.cards = this.gameService.generateRandomEmojis(14);
   }
 
+  ngOnDestroy(): void {
+    this.isComponentAlive = false;
+  }
+
   cardClicked(card: ICard) {
+    if (this.wrongMatchDisplay) {
+      return;
+    }
     if (this.firstSelection) {
       this.secondSelection = card;
       this.secondSelection.isFlipped = true;
@@ -63,9 +73,11 @@ export class RoundComponent implements OnInit {
       this.increaseScore();
       this.checkIfGameIsFinished();
     } else {
+      this.wrongMatchDisplay = true;
       setTimeout(() => {
         firstSelection.isFlipped = false;
         secondSelection.isFlipped = false;
+        this.wrongMatchDisplay = false;
       }, 1500);
     }
     this.firstSelection = null;
@@ -83,6 +95,7 @@ export class RoundComponent implements OnInit {
     this.db
       .object<IGame>(`/games/${this.gameUrl}`)
       .valueChanges()
+      .pipe(takeWhile(() => this.isComponentAlive))
       .subscribe((game) => {
         {
           if (game?.state === GameState.Finished) {
@@ -139,6 +152,13 @@ export class RoundComponent implements OnInit {
           .update({
             state: GameState.Finished,
           })
+          .then(() =>
+            this.db.list(`games/${this.gameUrl}/Score`).push({
+              score: this.score,
+              gameUrl: this.gameUrl || '',
+              userId: this.userId,
+            })
+          )
           .then(() => {
             this.router.navigate(['/game', this.gameUrl, 'scoreboard']);
           });

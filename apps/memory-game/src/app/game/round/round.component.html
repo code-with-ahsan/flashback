@@ -4,13 +4,13 @@
   </div>
 
   <div class="flex flex-wrap gap-4 items-center justify-center">
-    <div [class.flipped]="card.isFlipped" [class.matched]="card.isMatched"  (click)="cardClicked(card)" class="relative w-24 h-32 card" *ngFor="let card of cards">
-      <div class="front absolute flex items-center justify-center cursor-pointer hover:shadow-lg w-24 h-32 bg-purple shadow-sm border border-black">
-        <div class="card-inner">
+    <div [ngClass]="wrongMatchDisplay && !card.isFlipped ? 'cursor-not-allowed' : 'cursor-pointer' " [class.flipped]="card.isFlipped" [class.matched]="card.isMatched"  (click)="cardClicked(card)" class="relative transition-all w-12 h-16 md:w-24 md:h-32 card" *ngFor="let card of cards">
+      <div class="front scale absolute flex items-center justify-center hover:shadow-lg w-12 h-16 md:w-24 md:h-32 bg-purple shadow-sm border border-black">
+        <div class="card-inner text-xl md:text-4xl">
           {{ card.value }}
         </div>
       </div>
-      <div class="back absolute flex items-center justify-center cursor-pointer hover:shadow-lg w-24 h-32 bg-purple shadow-sm border border-black">
+      <div class="back absolute flex items-center justify-center hover:shadow-lg w-12 h-16 md:w-24 md:h-32 bg-purple shadow-sm border border-black">
 
       </div>
     </div>

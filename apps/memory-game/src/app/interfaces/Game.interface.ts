@@ -9,6 +9,7 @@ export enum GameState {
 
 export interface IGame extends Game {
   participants: User[];
+  participantIds: string[];
   state: GameState;
   Score: { score: number; userId: string }[];
 }

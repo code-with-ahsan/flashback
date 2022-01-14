@@ -4,6 +4,7 @@ import { WelcomeComponent } from './welcome.component';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { GameModalComponent } from './components/game-modal/game-modal.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
 
 @NgModule({
   declarations: [WelcomeComponent, GameModalComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), AngularFireAuthModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    AngularFireAuthModule,
+    ClipboardModule,
+  ],
 })
 export class WelcomeModule {}

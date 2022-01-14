@@ -1,24 +1,21 @@
 <mg-round-splash-screen>
   <ng-container *ngIf="game$ | async as game">
     <div class="text-2xl">Participants</div>
-    <div class="flex" *ngFor="let participant of game.participants">
+    <div class="flex mb-1 items-center" *ngFor="let participant of game.participants">
       <img
         class="inline-block h-6 w-6 rounded-full ring-2 ring-white"
         [src]="participant.photoURL"
         alt=""
       />
-      <div class="ml-4 font-semibold">{{ participant.displayName }}</div>
-      <div class="ml-1" *ngIf="participant.id === (user$ | async)?.id">
-        (You)
-      </div>
+      <div class="text-sm sm:text-base ml-4 font-semibold">{{ participant.id === (user$ | async)?.id ? 'You' : participant.displayName }}</div>
       <div
         class="flex flex-1 justify-end"
         [class.hidden]="
           !(isParticipating && participant.id === (user$ | async)?.id)
         "
       >
-        <div [class.hidden]="isHost" class="ml-2 btn" (click)="leaveGame(game.url)">Leave</div>
-        <div *ngIf="isHost" class="ml-2 btn" (click)="startGame(game.url)">Start</div>
+        <div [class.hidden]="isHost || !(isParticipating && participant.id === (user$ | async)?.id)" class="ml-2 btn max-h-5" (click)="leaveGame(game.url)">Leave</div>
+        <div *ngIf="isHost" class="ml-2 btn max-h-5" (click)="startGame(game.url)">Start</div>
       </div>
     </div>
   </ng-container>

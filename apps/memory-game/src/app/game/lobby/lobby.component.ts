@@ -4,14 +4,10 @@ import {
   catchError,
   combineLatestWith,
   distinctUntilChanged,
-  distinctUntilKeyChanged,
   filter,
   first,
-  firstValueFrom,
   mergeMap,
   Observable,
-  of,
-  take,
   takeWhile,
   throwError,
 } from 'rxjs';
@@ -74,10 +70,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
         if (!user?.id) {
           return;
         }
-        this.isHost = game.hostId === user?.id;
-        this.isParticipating = game.participantsIds.some(
-          (id) => id === user?.id
-        );
+        this.setHostAndParticipants(game, user);
         if (!game.participantsIds.some((id) => id === user?.id)) {
           const confirm = window.confirm('Do you want to join the lobby?');
           if (confirm) {
@@ -88,16 +81,26 @@ export class LobbyComponent implements OnInit, OnDestroy {
       });
   }
 
+  setHostAndParticipants(game: IGame, user: User) {
+    this.isHost = game.hostId === user?.id;
+    this.isParticipating = game.participantsIds.some((id) => id === user?.id);
+  }
+
   listenToGameEvents(url: string) {
     this.db
       .object(`games/${url}`)
       .valueChanges()
       .pipe(
         filter((game) => !!game),
-        takeWhile(() => this.isComponentAlive)
+        takeWhile(() => this.isComponentAlive),
+        combineLatestWith(this.userService.user$)
       )
-      .subscribe((game) => {
+      .subscribe(([game, user]) => {
         this.gameService.setGame(game as IGame);
+        if (!user) {
+          return;
+        }
+        this.setHostAndParticipants(game as IGame, user);
       });
     this.db
       .object<IGame>(`games/${url}`)
@@ -125,6 +128,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
       this.gameService.setGame(game);
       this.db.object(`games/${url}`).update({
         participants: game.participants,
+        participantsIds: game.participantsIds,
       });
     });
   }
@@ -149,6 +153,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
         this.gameService.setGame(game);
         this.db.object(`games/${url}`).update({
           participants: game.participants,
+          participantsIds: game.participantsIds,
         });
       });
   }

@@ -12,8 +12,11 @@ export class UserService {
   apiUrl = environment.apiUrl;
   userSource = new BehaviorSubject<User | null>(null);
   user$: Observable<User | null>;
+  authCheckedSource = new BehaviorSubject<boolean>(false);
+  authChecked$: Observable<boolean>;
   constructor(private http: HttpClient) {
     this.user$ = this.userSource.asObservable();
+    this.authChecked$ = this.authCheckedSource.asObservable();
   }
 
   createUserIfNecessary(user: firebase.User) {
@@ -24,6 +27,10 @@ export class UserService {
       photoURL,
       uid,
     });
+  }
+
+  setAuthChecked(checked: boolean) {
+    this.authCheckedSource.next(checked);
   }
 
   setUser(user: User | null) {

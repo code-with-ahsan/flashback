@@ -15,6 +15,7 @@ export class AppComponent {
     private userService: UserService
   ) {
     this.auth.authState.subscribe((authUser) => {
+      this.userService.setAuthChecked(true);
       if (!authUser) {
         let queryParams = {};
         if (!this.router.url.includes('welcome')) {

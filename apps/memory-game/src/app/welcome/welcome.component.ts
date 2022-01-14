@@ -20,6 +20,7 @@ export class WelcomeComponent implements OnInit {
   user!: User | null;
   componentIsAlive = true;
   gameUrl = '';
+  authChecked$ = this.userService.authChecked$;
   constructor(
     private auth: AngularFireAuth,
     private gameService: GameService,
@@ -29,6 +30,7 @@ export class WelcomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.gameService.setGame(null);
     this.userService.user$
       .pipe(takeWhile(() => this.componentIsAlive))
       .subscribe((user) => {
