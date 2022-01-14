@@ -1,6 +1,19 @@
-<div class="container" *ngIf="!splashVisible else splash">
-  <div class="text-7xl">
-    Game
+<div class="container relative w-full min-h-full m-auto p-4 flex flex-col items-center justify-center" *ngIf="!splashVisible else splash">
+  <div class="text-3xl top-3 right-0 w-full text-center mb-5">
+    Score: {{ score }}
+  </div>
+
+  <div class="flex flex-wrap gap-4 items-center justify-center">
+    <div [class.flipped]="card.isFlipped" [class.matched]="card.isMatched"  (click)="cardClicked(card)" class="relative w-24 h-32 card" *ngFor="let card of cards">
+      <div class="front absolute flex items-center justify-center cursor-pointer hover:shadow-lg w-24 h-32 bg-purple shadow-sm border border-black">
+        <div class="card-inner">
+          {{ card.value }}
+        </div>
+      </div>
+      <div class="back absolute flex items-center justify-center cursor-pointer hover:shadow-lg w-24 h-32 bg-purple shadow-sm border border-black">
+
+      </div>
+    </div>
   </div>
 </div>
 

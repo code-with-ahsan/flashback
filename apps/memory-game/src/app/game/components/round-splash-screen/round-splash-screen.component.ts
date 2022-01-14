@@ -19,14 +19,13 @@ const backgroundImages = [
   styleUrls: ['./round-splash-screen.component.scss'],
 })
 export class RoundSplashScreenComponent implements OnInit {
-  @Input() title = 'Flashback';
-  @HostBinding('style.backgroundImage') get textColor() {
+  @Input() title = '';
+  @HostBinding('style.backgroundImage') textColor = '#fff';
+  cardHeaderClass = '';
+
+  ngOnInit(): void {
     const randomIndex = Math.random() > 0.5 ? 0 : 1;
     this.cardHeaderClass = backgroundImages[randomIndex].cardHeaderClass;
-    return backgroundImages[randomIndex].backgroundColor;
+    this.textColor = backgroundImages[randomIndex].backgroundColor;
   }
-  cardHeaderClass = '';
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { RoundComponent } from './round/round.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { RoundSplashScreenComponent } from './components/round-splash-screen/round-splash-screen.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 const routes = [
   {
@@ -12,16 +13,15 @@ const routes = [
     component: GameComponent,
     children: [
       {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'round/1',
+        path: ':url/lobby',
+        component: LobbyComponent,
       },
       {
-        path: 'round/:round',
+        path: ':url/round',
         component: RoundComponent,
       },
       {
-        path: 'round/:round/scoreboard',
+        path: ':url/scoreboard',
         component: ScoreboardComponent,
       },
     ],
@@ -29,7 +29,13 @@ const routes = [
 ];
 
 @NgModule({
-  declarations: [GameComponent, RoundComponent, ScoreboardComponent, RoundSplashScreenComponent],
+  declarations: [
+    GameComponent,
+    RoundComponent,
+    ScoreboardComponent,
+    RoundSplashScreenComponent,
+    LobbyComponent,
+  ],
   imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class GameModule {}

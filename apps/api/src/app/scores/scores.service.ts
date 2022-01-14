@@ -1,9 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { PrismaService } from '../../prisma.service';
+
 @Injectable()
 export class ScoresService {
-  create(createScoreDto: Prisma.ScoreCreateInput) {
-    return 'This action adds a new score';
+  constructor(private readonly prisma: PrismaService) {}
+  create(createScoreDto) {
+    const { score, gameUrl, userId } = createScoreDto;
+    return this.prisma.score.create({
+      data: {
+        score,
+        game: {
+          connect: {
+            url: gameUrl,
+          },
+        },
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        game: true,
+        user: true,
+      },
+    });
   }
 
   findAll() {

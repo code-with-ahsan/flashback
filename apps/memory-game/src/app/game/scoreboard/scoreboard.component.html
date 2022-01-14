@@ -1,1 +1,21 @@
-<p>scoreboard works!</p>
+<mg-round-splash-screen>
+  <ng-container *ngIf="game && score">
+    <div class="text-2xl">Scoreboard</div>
+    <div class="flex" *ngFor="let participant of game.participants">
+      <img
+        class="inline-block h-6 w-6 rounded-full ring-2 ring-white"
+        [src]="participant.photoURL"
+        alt=""
+      />
+      <div class="ml-4 font-semibold">{{ participant.displayName }}</div>
+      <div
+        class="flex flex-1 justify-end"
+      >
+        <div>{{score[participant.id]}}</div>
+      </div>
+    </div>
+    <div class="mt-3 flex justify-center">
+      <div class="btn w-fit" routerLink="/">Go to Home</div>
+    </div>
+  </ng-container>
+</mg-round-splash-screen>

@@ -12,14 +12,16 @@ datasource db {
 }
 
 model User {
-  id                 String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  createdAt          DateTime @default(now())
-  name               String
-  email              String   @unique
-  gamesParticipating Game[]   @relation("participants", fields: [gamesInParticipatingIds])
-  gamesInParticipatingIds String @db.Array(ObjectId)
-  gamesHosted        Game[]   @relation("host")
-  Score              Score[]
+  id                      String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  createdAt               DateTime @default(now())
+  displayName             String
+  email                   String   @unique
+  gamesParticipating      Game[]   @relation("participants", fields: [gamesInParticipatingIds])
+  gamesInParticipatingIds String[] @db.Array(ObjectId)
+  gamesHosted             Game[]   @relation("host")
+  Score                   Score[]
+  photoURL                String?
+  uid                     String?
 }
 
 model Game {

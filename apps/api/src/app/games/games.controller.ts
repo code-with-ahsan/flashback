@@ -12,6 +12,7 @@ import { Prisma } from '@prisma/client';
 import { JoinGameDto } from './dto/join-game.dto';
 import { LeaveGameDto } from './dto/leave-game.dto';
 import { CreateGameDto } from './dto/create-game-dto';
+import { AddGameScoreDto } from './dto/add-game-score-dto';
 
 @Controller('games')
 export class GamesController {
@@ -23,12 +24,12 @@ export class GamesController {
     return this.gamesService.create(rest, hostId);
   }
 
-  @Post('/:id/join')
-  joinGame(@Param('id') id: string, @Body() joinGameDto: JoinGameDto) {
-    console.log('Trying the query', joinGameDto, id);
-    this.gamesService.findOne({ id }).then(console.log);
+  @Post('/:url/join')
+  joinGame(@Param('url') url: string, @Body() joinGameDto: JoinGameDto) {
+    console.log('Trying the query', joinGameDto, url);
+    this.gamesService.findOne({ url }).then(console.log);
     return this.gamesService.update({
-      where: { id },
+      where: { url },
       data: {
         participants: {
           connect: {
@@ -39,10 +40,10 @@ export class GamesController {
     });
   }
 
-  @Post('/:id/leave')
-  leaveGame(@Param('id') id: string, @Body() leaveGameDto: LeaveGameDto) {
+  @Post('/:url/leave')
+  leaveGame(@Param('url') url: string, @Body() leaveGameDto: LeaveGameDto) {
     return this.gamesService.update({
-      where: { id },
+      where: { url },
       data: {
         participants: {
           disconnect: {

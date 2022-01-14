@@ -7,6 +7,12 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
   async create(data: Prisma.UserCreateInput): Promise<User> {
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: data.email },
+    });
+    if (existingUser) {
+      return existingUser;
+    }
     return this.prisma.user.create({
       data,
     });

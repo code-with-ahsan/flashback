@@ -1,0 +1,7 @@
+.btn {
+  @apply flex items-center text-center bg-pink cursor-pointer hover:opacity-80 rounded-full px-8 border border-black
+}
+
+.btn-sm {
+  @apply px-2 text-xs text-center
+}

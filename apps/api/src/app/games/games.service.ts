@@ -16,9 +16,18 @@ export class GamesService {
           id: hostId,
         },
       },
+      participants: {
+        connect: {
+          id: hostId,
+        }
+      }
     };
     return this.prisma.game.create({
       data: game,
+      include: {
+        participants: true,
+        host: true,
+      }
     });
   }
 
@@ -27,6 +36,11 @@ export class GamesService {
   ): Promise<Game | null> {
     const game = await this.prisma.game.findUnique({
       where: gameWhereUniqueInput,
+      include: {
+        host: true,
+        participants: true,
+        Score: true,
+      },
     });
     if (!game) {
       throw new HttpException('Game not found', HttpStatus.NOT_FOUND);
@@ -46,6 +60,10 @@ export class GamesService {
     return this.prisma.game.update({
       data,
       where,
+      include: {
+        host: true,
+        participants: true,
+      },
     });
   }
 

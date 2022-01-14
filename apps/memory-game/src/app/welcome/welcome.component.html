@@ -4,6 +4,9 @@
       <i class="mr-2 fas fa-times"></i>
       <i class="mr-2 fas fa-copy"></i>
       <i class="mr-2 fas fa-minus"></i>
+      <div class="flex-1 flex justify-end">
+        <i class="cursor-pointer hover:text-purple  mr-2 fas fa-lock" *ngIf="user" (click)="logout()"></i>
+      </div>
     </div>
     <div class="z-10 relative flex-1 bg-white p-4 border-black border-x-2">
       <div class="text-7xl text-center">
@@ -12,7 +15,7 @@
     </div>
     <div class="z-10 relative flex items-center px-2 py-1 bg-white border-black border-2 rounded-b-lg">
       <i class="fas fa-chevron-left"></i>
-      <div routerLink="/game" class="ml-3 flex items-center bg-pink cursor-pointer hover:opacity-80 rounded-full px-8 border border-black">
+      <div (click)="letsGo()" class="ml-3 btn">
         <div class="text-center">
           Let's Go!
         </div>
@@ -27,3 +30,5 @@
     <img class="z-20 w-28 h-28 absolute right-[-80px] bottom-[-80px]" src="assets/images/ring-yellow.png" alt="yellow-ring">
   </div>
 </div>
+
+<mg-game-modal (createNewGame)="createNewGame()" (joinGame)="joinGame($event)" (closeModal)="closeModal()" [gameUrl]="gameUrl" [showModal]="showGameModal"></mg-game-modal>

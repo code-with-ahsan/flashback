@@ -1,0 +1,60 @@
+.card {
+  &:nth-child(n) {
+    .front, .back {
+      @apply bg-yellow;
+    }
+  }
+
+  &:nth-child(2n) {
+    .front, .back {
+      @apply bg-purple;
+    }
+  }
+
+  &:nth-child(3n) {
+   .front, .back {
+    @apply bg-pink;
+   }
+  }
+
+  .front {
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    transform: rotateY(180deg);
+    transition: all 0.5s ease;
+  }
+
+  .back {
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    transform: rotateY(0deg);
+    transition: all 0.5s ease;
+  }
+
+  &.flipped,
+  &.matched {
+    .front {
+      z-index: 20;
+      transform: rotateY(0deg);
+    }
+    .back {
+      z-index: 10;
+      transform: rotateY(180deg);
+    }
+  }
+
+}

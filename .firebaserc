@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "flashback-3b0aa"
+  },
+  "targets": {
+    "flashback-3b0aa": {
+      "hosting": {
+        "memory-game": [
+          "flashback-3b0aa"
+        ]
+      }
+    }
+  }
+}

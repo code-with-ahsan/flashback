@@ -72,7 +72,7 @@
       "projectType": "application",
       "root": "apps/memory-game",
       "sourceRoot": "apps/memory-game/src",
-      "prefix": "memory-game-ws",
+      "prefix": "mg",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -160,6 +160,15 @@
           "options": {
             "jestConfig": "apps/memory-game/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "browserTarget": "memory-game:build:production",
+            "firebaseProject": "flashback-3b0aa",
+            "firebaseHostingSite": "flashback-3b0aa"
           }
         }
       },
