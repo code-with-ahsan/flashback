@@ -26,19 +26,17 @@
         To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     -->
     <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full">
-      <div class="z-10 relative flex justify-end px-2 py-1 bg-black rounded-t-lg border-black border-2">
+      <div class="z-10 relative flex justify-between px-2 py-1 bg-black rounded-t-lg border-black border-2">
+        <div class="text-lg leading-6 font-medium text-white">Create or Join Game</div>
         <div class="cursor-pointer hover:opacity-80 text-white " (click)="closeModal.emit()">Close</div>
 
       </div>
       <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex justify-center items-center">
         <div class="flex items-center">
           <div *ngIf="!(gameUrl); else gameUrlView" class="mt-3 text-center sm:mt-0 sm:ml-4">
-            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-              Create or Join Game
-            </h3>
-            <div class="flex flex-col items-center">
+            <div class="flex items-center">
               <input id="gameUrl" placeholder="Enter game ID here" #urlInput class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md shadow-sm"/>
-              <div class="btn btn-sm my-3" (click)="joinExistingGame(urlInput.value);">
+              <div class="btn btn-sm mx-3" (click)="joinExistingGame(urlInput.value);">
                 Go
               </div>
             </div>

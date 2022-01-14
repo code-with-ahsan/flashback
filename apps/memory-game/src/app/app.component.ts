@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import firebase from 'firebase/compat/app';
 import { UserService } from './services/user.service';
 @Component({
   selector: 'mg-root',
@@ -9,6 +8,7 @@ import { UserService } from './services/user.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  returnUrl!: string;
   constructor(
     private auth: AngularFireAuth,
     private router: Router,
@@ -16,8 +16,20 @@ export class AppComponent {
   ) {
     this.auth.authState.subscribe((authUser) => {
       if (!authUser) {
-        this.router.navigate(['/welcome']);
+        let queryParams = {};
+        if (!this.router.url.includes('welcome')) {
+          this.returnUrl = this.router.url;
+          queryParams = { returnUrl: this.router.url };
+        }
+
+        this.router.navigate(['/welcome'], {
+          queryParams,
+        });
       } else {
+        if (this.returnUrl) {
+          this.router.navigateByUrl(this.returnUrl);
+          this.returnUrl = '';
+        }
         this.userService.createUserIfNecessary(authUser).subscribe((user) => {
           this.userService.setUser(user);
         });
