@@ -10,6 +10,6 @@ export const environment = {
     messagingSenderId: '1014147231990',
     measurementId: 'G-8JNV7B55M8',
   },
-  apiUrl: 'http://localhost:3333/api',
+  apiUrl: 'https://flashback-cwa.herokuapp.com/api',
   production: true,
 };
