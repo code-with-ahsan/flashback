@@ -16,6 +16,9 @@ https://flashback-3b0aa.web.app/
 ## About the game
 This is a memory based game built for the MongoDB Atlas Hackathon. Players can create game lobbies and invite others using a link. They can simulataneously play the memory game and whoever finishes first, essentially wins and the game quickly ends as someone finishes the game as a winner.
 
+## IMPORTANT NOTE:
+When testing the app, please wait a while as the heroku instance (dyno) might still be down, since it is on a free teer. Once you log in, you can wait for a few seconds and try again to see everything working.
+
 
 ## Built with
 The game is built using Angular, TypeScript, TailwindCSS, NestJS, MongoDB 😄 (of course), and Firebase. Also, with a lot of and hardwork 💗. Which can be seen at either [Twitch](https://twitch.tv/codewithahsan) or [YouTube](https://youtube.com/CodeWithAhsan) as all of this was streamed LIVE with all my efforts, frustration, and small wins 😉.
@@ -28,7 +31,7 @@ The frontend of the app is deployed to Firebase Hosting while the backend (NestJ
 
 <div style="margin-bottom: 30px">
   <div>
-    Hey everyone, I'm Ahsan and I'm a front-end focused Full-Stack JavaScript Engineer and author of [the Angular Cookbook](https://ahsanayaz.com/ng-book). Right now I'm working as a Software Architect at <a href="https://www.syncron.com/">Syncron</a> and a <a href="https://ahsanayaz.com/gde">Google Developers Expert in Angular</a>. I create video tutorials on <a href="https://ahsanayaz.com/youtube">YouTube Channel</a> and write articles at my blog <a href="https://codewithahsan.dev">https://codewithahsan.dev</a>. 
+    Hey everyone, I'm Ahsan and I'm a front-end focused Full-Stack JavaScript Engineer and author of <a href="https://ahsanayaz.com/ng-book">the Angular Cookbook</a>. Right now I'm working as a Software Architect at <a href="https://www.syncron.com/">Syncron</a> and a <a href="https://ahsanayaz.com/gde">Google Developers Expert in Angular</a>. I create video tutorials on <a href="https://ahsanayaz.com/youtube">YouTube Channel</a> and write articles at my blog <a href="https://codewithahsan.dev">https://codewithahsan.dev</a>. 
   </div>
 </div>
 
